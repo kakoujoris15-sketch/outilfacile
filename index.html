@@ -1,1 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="OutilFacile : des outils gratuits de calcul, d'études et de productivité accessibles à tous.">
+<title>OutilFacile — Les bons outils, simplement</title>
+<style>
+:root {
+  --primary: #2563eb;
+  --dark: #10203a;
+  --muted: #64748b;
+  --bg: #f5f7fb;
+  --white: #fff;
+  --border: #e2e8f0;
+  --green: #059669;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--dark);
+  background: var(--bg);
+  line-height: 1.6;
+}
+header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo { font-size: 23px; font-weight: 800; color: var(--primary); }
+.logo span { color: var(--dark); }
+header a { text-decoration: none; }
+.header-tag { color: var(--muted); font-size: 12px; }
+.hero {
+  padding: 54px 5% 42px;
+  text-align: center;
+  background: linear-gradient(135deg,#eaf1ff,#fff);
+}
+.badge {
+  display: inline-block;
+  color: var(--primary);
+  background: #dce8ff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+h1 { font-size: clamp(30px,6vw,48px); line-height: 1.15; margin: 18px 0 12px; }
+.hero p { max-width: 540px; margin: 0 auto 22px; color: var(--muted); }
+.search {
+  display: block;
+  width: min(100%, 480px);
+  margin: 0 auto;
+  padding: 15px 17px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 16px;
+  background: white;
+}
+main { max-width: 1050px; margin: auto; padding: 30px 5%; }
+.section-title { margin-bottom: 5px; font-size: 25px; }
+.intro { color: var(--muted); margin-top: 0; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap: 17px;
+  margin-top: 24px;
+}
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 21px;
+  box-shadow: 0 4px 14px rgba(15,23,42,.035);
+}
+.icon {
+  width: 47px; height: 47px; border-radius: 12px;
+  display: grid; place-items: center;
+  background: #eaf1ff; font-size: 24px;
+}
+.card h3 { margin: 12px 0 5px; }
+.card p { color: var(--muted); font-size: 14px; margin-top: 0; }
+button {
+  border: 0; border-radius: 9px; padding: 12px 15px;
+  background: var(--primary); color: white; font-size: 15px;
+  font-weight: bold; cursor: pointer;
+}
+.card button { width: 100%; margin-top: 8px; }
+button:hover { opacity: .9; }
+.tool-panel {
+  margin-top: 28px; background: white; border: 1px solid var(--border);
+  border-radius: 16px; padding: 23px; display: none;
+}
+.tool-panel.active { display: block; }
+.tool-panel h2 { margin-top: 0; }
+label { display: block; margin: 13px 0 5px; font-weight: bold; font-size: 14px; }
+input, textarea {
+  display: block; width: 100%; padding: 12px;
+  border: 1px solid #cbd5e1; border-radius: 9px; font-size: 16px;
+  font-family: inherit; background: white;
+}
+textarea { min-height: 120px; resize: vertical; }
+.result {
+  margin-top: 15px; padding: 13px; border-radius: 9px;
+  background: #ecfdf5; color: #065f46; font-weight: bold;
+  overflow-wrap: anywhere; display: none;
+}
+.result.show { display: block; }
+.tool-panel .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.secondary { background: #e2e8f0; color: var(--dark); }
+.hidden { display: none !important; }
+footer {
+  margin-top: 40px; padding: 28px 5%; text-align: center;
+  color: var(--muted); border-top: 1px solid var(--border); background: white;
+  font-size: 13px;
+}
+footer strong { color: var(--dark); }
+@media(max-width:420px) {
+  header { padding: 13px 4%; }
+  .logo { font-size: 20px; }
+  .header-tag { font-size: 10px; }
+  .hero { padding-top: 38px; }
+  .card, .tool-panel { padding: 17px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#" aria-label="Accueil OutilFacile">Outil<span>Facile</span></a>
+  <span class="header-tag">Des outils gratuits pour tous</span>
+</header>
 
+<section class="hero">
+  <span class="badge">SIMPLE · GRATUIT · PRATIQUE</span>
+  <h1>Les bons outils,<br>simplement.</h1>
+  <p>Des outils pratiques pour calculer, étudier et gagner du temps. Gratuitement, directement depuis ton téléphone.</p>
+  <input class="search" id="search" type="search" placeholder="🔎 Rechercher un outil..." aria-label="Rechercher un outil">
+</section>
+
+<main>
+  <h2 class="section-title">Nos outils gratuits</h2>
+  <p class="intro">Choisis un outil pour commencer. Aucune inscription nécessaire.</p>
+
+  <div class="grid" id="toolGrid">
+    <article class="card" data-search="pourcentage calcul réduction augmentation">
+      <div class="icon">🧮</div>
+      <h3>Calculateur de pourcentage</h3>
+      <p>Calcule un pourcentage d'une valeur en quelques secondes.</p>
+      <button onclick="openTool('percent')">Utiliser l'outil</button>
+    </article>
+    <article class="card" data-search="moyenne scolaire notes élèves école">
+      <div class="icon">🎓</div>
+      <h3>Calculateur de moyenne</h3>
+      <p>Calcule la moyenne de tes notes scolaires.</p>
+      <button onclick="openTool('average')">Utiliser l'outil</button>
+    </article>
+    <article class="card" data-search="texte mots caractères lettres compteur">
+      <div class="icon">✍️</div>
+      <h3>Compteur de mots</h3>
+      <p>Compte les mots, les caractères et les espaces d'un texte.</p>
+      <button onclick="openTool('words')">Utiliser l'outil</button>
+    </article>
+    <article class="card" data-search="date durée jours calendrier temps">
+      <div class="icon">📅</div>
+      <h3>Calculateur de dates</h3>
+      <p>Calcule le nombre de jours entre deux dates.</p>
+      <button onclick="openTool('dates')">Utiliser l'outil</button>
+    </article>
+    <article class="card" data-search="épargne argent budget économie économiser">
+      <div class="icon">💰</div>
+      <h3>Calculateur d'épargne</h3>
+      <p>Estime ton épargne selon le montant et la durée choisis.</p>
+      <button onclick="openTool('savings')">Utiliser l'outil</button>
+    </article>
+  </div>
+
+  <section class="tool-panel" id="percent">
+    <h2>🧮 Calculateur de pourcentage</h2>
+    <label for="pValue">Valeur de départ</label>
+    <input id="pValue" type="number" inputmode="decimal" placeholder="Ex. : 5000">
+    <label for="pRate">Pourcentage (%)</label>
+    <input id="pRate" type="number" inputmode="decimal" placeholder="Ex. : 15">
+    <div class="actions"><button onclick="calcPercent()">Calculer</button><button class="secondary" onclick="resetTool('percent')">Effacer</button></div>
+    <div class="result" id="pResult" aria-live="polite"></div>
+  </section>
+
+  <section class="tool-panel" id="average">
+    <h2>🎓 Calculateur de moyenne</h2>
+    <p class="intro">Entre tes notes sur 20, séparées par des virgules. Les coefficients sont facultatifs : cette première version calcule une moyenne simple.</p>
+    <label for="aValues">Tes notes</label>
+    <input id="aValues" type="text" inputmode="decimal" placeholder="Ex. : 12, 15, 8.5, 17">
+    <div class="actions"><button onclick="calcAverage()">Calculer la moyenne</button><button class="secondary" onclick="resetTool('average')">Effacer</button></div>
+    <div class="result" id="aResult" aria-live="polite"></div>
+  </section>
+
+  <section class="tool-panel" id="words">
+    <h2>✍️ Compteur de mots</h2>
+    <label for="wText">Ton texte</label>
+    <textarea id="wText" placeholder="Écris ou colle ton texte ici..." oninput="calcWords()"></textarea>
+    <div class="result show" id="wResult" aria-live="polite">Mots : 0 · Caractères : 0 · Sans espaces : 0</div>
+    <div class="actions"><button onclick="copyText()">Copier le texte</button><button class="secondary" onclick="resetTool('words')">Effacer</button></div>
+    <div class="result" id="wCopy" aria-live="polite"></div>
+  </section>
+
+  <section class="tool-panel" id="dates">
+    <h2>📅 Calculateur de dates</h2>
+    <label for="dStart">Date de début</label>
+    <input id="dStart" type="date">
+    <label for="dEnd">Date de fin</label>
+    <input id="dEnd" type="date">
+    <div class="actions"><button onclick="calcDates()">Calculer la durée</button><button class="secondary" onclick="resetTool('dates')">Effacer</button></div>
+    <div class="result" id="dResult" aria-live="polite"></div>
+  </section>
+
+  <section class="tool-panel" id="savings">
+    <h2>💰 Calculateur d'épargne</h2>
+    <label for="sAmount">Montant épargné chaque mois (FCFA)</label>
+    <input id="sAmount" type="number" min="0" inputmode="decimal" placeholder="Ex. : 10000">
+    <label for="sMonths">Nombre de mois</label>
+    <input id="sMonths" type="number" min="1" step="1" inputmode="numeric" placeholder="Ex. : 12">
+    <div class="actions"><button onclick="calcSavings()">Calculer mon épargne</button><button class="secondary" onclick="resetTool('savings')">Effacer</button></div>
+    <div class="result" id="sResult" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer>
+  <strong>OutilFacile</strong><br>
+  Les bons outils, simplement.<br>
+  Des outils gratuits accessibles à tous.<br><br>
+  © <span id="year"></span> OutilFacile
+</footer>
+
+<script>
+const fmt = n => new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(n);
+function showResult(id, text) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.classList.add('show');
+}
+function openTool(id) {
+  document.querySelectorAll('.tool-panel').forEach(el => el.classList.remove('active'));
+  const panel = document.getElementById(id);
+  panel.classList.add('active');
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function resetTool(id) {
+  const panel = document.getElementById(id);
+  panel.querySelectorAll('input,textarea').forEach(el => el.value = '');
+  panel.querySelectorAll('.result').forEach(el => {
+    el.textContent = '';
+    el.classList.remove('show');
+  });
+  if(id === 'words') {
+    showResult('wResult','Mots : 0 · Caractères : 0 · Sans espaces : 0');
+  }
+}
+function calcPercent() {
+  const v = document.getElementById('pValue').value;
+  const r = document.getElementById('pRate').value;
+  if(v.trim()==='' || r.trim()==='' || !Number.isFinite(Number(v)) || !Number.isFinite(Number(r))) {
+    return showResult('pResult','Entre une valeur et un pourcentage valides.');
+  }
+  showResult('pResult',fmt(Number(v)*Number(r)/100)+' ('+r+' % de '+fmt(Number(v))+')');
+}
+function calcAverage() {
+  const raw = document.getElementById('aValues').value.trim();
+  if(!raw) return showResult('aResult','Entre au moins une note.');
+  const parts = raw.split(/[;,]+/).map(x=>x.trim().replace(',','.')).filter(Boolean);
+  const nums = parts.map(Number);
+  if(!nums.length || nums.some(n=>!Number.isFinite(n)||n<0||n>20)) {
+    return showResult('aResult','Vérifie les notes : elles doivent être comprises entre 0 et 20.');
+  }
+  const avg = nums.reduce((a,b)=>a+b,0)/nums.length;
+  showResult('aResult','Ta moyenne est de '+fmt(avg)+'/20 ('+nums.length+' note(s)).');
+}
+function calcWords() {
+  const t = document.getElementById('wText').value;
+  const words = t.trim() ? t.trim().split(/\s+/u).length : 0;
+  showResult('wResult','Mots : '+words+' · Caractères : '+t.length+' · Sans espaces : '+t.replace(/\s/g,'').length);
+}
+async function copyText() {
+  const t = document.getElementById('wText').value;
+  try {
+    await navigator.clipboard.writeText(t);
+    showResult('wCopy','Texte copié !');
+  } catch(e) {
+    document.getElementById('wText').select();
+    showResult('wCopy','Sélectionne le texte puis utilise Copier sur ton téléphone.');
+  }
+}
+function calcDates() {
+  const a = document.getElementById('dStart').value;
+  const b = document.getElementById('dEnd').value;
+  if(!a||!b) return showResult('dResult','Choisis les deux dates.');
+  const start = new Date(a+'T00:00:00Z');
+  const end = new Date(b+'T00:00:00Z');
+  const days = Math.round((end-start)/86400000);
+  showResult('dResult',days<0 ? 'La date de fin doit être après la date de début.' : 'Durée : '+days+' jour(s), soit '+(days+1)+' jours en comptant les deux dates.');
+}
+function calcSavings() {
+  const a = document.getElementById('sAmount').value;
+  const m = document.getElementById('sMonths').value;
+  if(a.trim()===''||m.trim()===''||Number(a)<0||Number(m)<=0||!Number.isInteger(Number(m))) {
+    return showResult('sResult','Entre un montant valide et un nombre entier de mois supérieur à zéro.');
+  }
+  showResult('sResult','Épargne estimée : '+fmt(Number(a)*Number(m))+' FCFA en '+m+' mois, sans intérêts.');
+}
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.toLocaleLowerCase('fr');
+  document.querySelectorAll('#toolGrid .card').forEach(card=>{
+    card.classList.toggle('hidden',!card.dataset.search.toLocaleLowerCase('fr').includes(q) && !card.innerText.toLocaleLowerCase('fr').includes(q));
+  });
+});
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+        </html>
